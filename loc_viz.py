@@ -43,6 +43,7 @@ def main():
         _, ax = plt.subplots()
         ax.set_title('File-wise LOC distribution across projects')
         ax.boxplot(all_project_locs)
+        ax.set_xticklabels(projects)
         plt.show() 
     except:
         _, value, _ = sys.exc_info()
