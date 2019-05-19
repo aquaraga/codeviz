@@ -5,3 +5,11 @@ Python scripts to perform and visualize comparative analyses of different code-b
 * Lines of code
 * Code duplication
 * Code complexity
+
+## Installation instructions
+
+Todo
+
+## Configuration instructions
+
+Todo
