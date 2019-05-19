@@ -20,7 +20,7 @@ def filewise_loc_for_project(locPath, base, project):
     return list(map(lambda x: int(x.split()[-1]) ,lines[6:]))
 
 
-def main():
+def get_base_dir():
     if 'BASE_DIR' not in os.environ:
         print('BASE_DIR environment variable must be set', file = sys.stderr)
         sys.exit(-1)
@@ -28,7 +28,11 @@ def main():
     if not os.path.isdir(base_dir):
         print('BASE_DIR environment variable must be a valid directory', file = sys.stderr)
         sys.exit(-2)
+    return base_dir
 
+
+def main():
+    base_dir = get_base_dir()
     wd = os.getcwd()
     os.chdir(base_dir)
 
@@ -43,7 +47,6 @@ def main():
         print('Error %s: %s' % (value.filename, value.strerror))
     finally:
         os.chdir(wd)
-
 
 
 main()
