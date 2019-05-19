@@ -4,6 +4,7 @@ import subprocess
 import shlex
 import os
 import sys
+import matplotlib.pyplot as plt
 
 def get_projects_to_scan(base):
     return list(filter(lambda x: os.path.isdir(os.path.join(base, x)), os.listdir(base)))
@@ -35,24 +36,18 @@ def main():
     base_dir = get_base_dir()
     wd = os.getcwd()
     os.chdir(base_dir)
-
     try:
         projects = get_projects_to_scan(base_dir)
-        for project in projects:
-            print(f'*** Printing loc_metrics for ${project}....')
-            print(filewise_loc_for_project(f"{os.path.join(wd, 'loc')}",
-              base_dir, project))
+        all_project_locs = [filewise_loc_for_project(f"{os.path.join(wd, 'loc')}",
+              base_dir, x) for x in projects]
+        _, ax = plt.subplots()
+        ax.set_title('File-wise LOC distribution across projects')
+        ax.boxplot(all_project_locs)
+        plt.show() 
     except:
         _, value, _ = sys.exc_info()
         print('Error %s: %s' % (value.filename, value.strerror))
     finally:
         os.chdir(wd)
 
-
 main()
-
-
-
-
-
-
